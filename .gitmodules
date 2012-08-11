@@ -40,3 +40,6 @@
 [submodule "bundle/vissum"]
 	path = bundle/vissum
 	url = git://github.com/vim-scripts/visSum.vim.git
+[submodule "bundle/increment"]
+	path = bundle/increment
+	url = git://github.com/vim-scripts/increment.vim.git
