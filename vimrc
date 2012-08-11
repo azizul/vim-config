@@ -323,9 +323,13 @@ nnoremap <F5> :GundoToggle<cr>
 " Snipmate Settings
 "-----------------------------------------------------------------------------
 try
-  source $VIMHOME/snippets/support_functions.vim
+  if has("unix")
+    source $VIMHOME/snippets/support_functions.vim
+  elseif has("pc")
+    source $VIMHOME\snippets\support_functions.vim
+  endif
 catch
-  source ~/vimfiles/snippets/support_functions.vim
+  source ~/.vim/snippets/support_functions.vim
 endtry
 autocmd vimenter * call s:SetupSnippets()
 function! s:SetupSnippets()
