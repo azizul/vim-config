@@ -27,9 +27,22 @@ call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
 " Set filetype stuff to on
-filetype on
-filetype plugin on
-filetype indent on
+if has("autocmd")
+  filetype plugin indent on 
+  
+  " restore cursor position
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+endif
+
+if $lt_Co > 2 || has("gui_running")
+  syntax on
+endif
+"filetype on
+"filetype plugin on
+"filetype indent on
 
 " Tabstops are 4 spaces
 set tabstop=2
@@ -215,6 +228,13 @@ nmap <silent> ,cd :lcd %:h<CR>
 nmap <silent> ,u= :t.\|s/./=/g\|:nohls<cr>
 nmap <silent> ,u- :t.\|s/./-/g\|:nohls<cr>
 
+" single text bubbling
+nmap <C-up> [e
+nmap <C-down> ]e
+
+" multiple text bubbling
+vmap <C-up> [egv
+vmap <C-down> ]egv
 "-----------------------------------------------------------------------------
 " abbreviation
 "-----------------------------------------------------------------------------
