@@ -28,8 +28,9 @@ call pathogen#helptags()
 
 " Set filetype stuff to on
 if has("autocmd")
-  filetype plugin indent on 
-  
+  filetype plugin indent on
+  syntax on
+
   " restore cursor position
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$") |
@@ -88,9 +89,6 @@ set showcmd
 " Show the current mode
 set showmode
 
-" Switch on syntax highlighting.
-syntax on
-
 " Same as default except that I remove the 'u' option
 set complete=.,w,b,t
 
@@ -126,14 +124,14 @@ set virtualedit=all
 " Disable encryption (:X)
 set key=
 
-" Wipe out all buffers
-nmap <silent> ,wa :1,9000bwipeout<cr>
-
-" Toggle paste mode
-nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
+" change listchar to more appropriate character
+set listchars=tab:▶\ ,eol:⌐
 
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
+
+" wrapping character breaks
+set showbreak=...
 "-----------------------------------------------------------------------------
 " status line
 "-----------------------------------------------------------------------------
@@ -235,10 +233,50 @@ nmap <C-down> ]e
 " multiple text bubbling
 vmap <C-up> [egv
 vmap <C-down> ]egv
+
+" toggle list
+nmap <leader>l :set list!<cr>
+
+" Wipe out all buffers
+nmap <silent> ,wa :1,9000bwipeout<cr>
+
+" Toggle paste mode
+nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
+
+" auto remove known programming source codes.
+if has("autocmd")
+  autocmd BufWritePre 
+        \ *.rb,*.java,*.c,*.cpp,*.h
+        \ :call <SID>StripTrailingWhitespaces()
+endif
+
+" map F9 to remove all trailing spaces in the files.
+nnoremap <F9> :call <SID>StripTrailingWhitespaces()<CR>
+
+" add function to remove trailing space
+function! <SID>StripTrailingWhitespaces()
+  " Preparation: save last search, and cursor position.
+  let _s=@/
+  let l = line(".")
+  let c = col(".")
+  " Do the business:
+  %s/\s\+$//e
+  " Clean up: restore previous history, and cursor position.
+  let @/=_s
+  call cursor(l,c)
+endfunction
+
 "-----------------------------------------------------------------------------
 " abbreviation
 "-----------------------------------------------------------------------------
 
+"-----------------------------------------------------------------------------
+" spell
+"-----------------------------------------------------------------------------
+nmap <leader>s :set spell!<cr>
+
+" set to british english language
+set spelllang=en_gb
 "-----------------------------------------------------------------------------
 " NERD Tree Plugin Settings
 "-----------------------------------------------------------------------------
@@ -317,4 +355,4 @@ endfunction
 "-----------------------------------------------------------------------------
 " colorscheme
 "-----------------------------------------------------------------------------
-colorscheme wombat 
+colorscheme wombat
