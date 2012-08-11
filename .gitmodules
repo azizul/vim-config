@@ -28,3 +28,15 @@
 [submodule "bundle/tcomment"]
 	path = bundle/tcomment
 	url = git://github.com/vim-scripts/tComment.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = git://github.com/sjl/gundo.vim.git
+[submodule "bundle/commandt"]
+	path = bundle/commandt
+	url = git://github.com/wincent/Command-T.git
+[submodule "bundle/align"]
+	path = bundle/align
+	url = git://github.com/vim-scripts/Align.git
+[submodule "bundle/vissum"]
+	path = bundle/vissum
+	url = git://github.com/vim-scripts/visSum.vim.git
