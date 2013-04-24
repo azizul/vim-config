@@ -16,7 +16,7 @@ echo "                                                                       (>^
 if has("unix")
   let $VIMHOME = '~/.vim'
   echom "Running in Linux environment!"
-elseif has("pc")
+else
   let $VIMHOME = '$VIMRUNTIME/vimfiles'
   echom "Running in Windows environment!"
 endif
@@ -96,7 +96,7 @@ set complete=.,w,b,t
 set showfulltag
 
 " Set the textwidth to be 80 chars
-set textwidth=80
+set textwidth=0
 
 " get rid of the silly characters in separators
 set fillchars = ""
@@ -125,7 +125,7 @@ set virtualedit=all
 set key=
 
 " change listchar to more appropriate character
-set listchars=tab:▶\ ,eol:⌐
+"set listchars=tab:▶\ ,eol:⌐
 
 " Syntax coloring lines that are too long just slows down the world
 set synmaxcol=2048
@@ -162,8 +162,8 @@ set ignorecase
 set incsearch
 
 " highlight search
-set nohlsearch
-
+" set nohlsearch
+"
 " Search the current file for what's currently in the search register and
 " display matches
 nmap <silent> ,gs :vimgrep /<C-r>// %<CR>:ccl<CR>:cwin<CR><C-W>J:nohls<CR>
@@ -324,9 +324,9 @@ nnoremap <F5> :GundoToggle<cr>
 "-----------------------------------------------------------------------------
 try
   if has("unix")
-    source $VIMHOME/snippets/support_functions.vim
+    source $VIM/vimfiles/snippets/support_functions.vim
   elseif has("pc")
-    source $VIMHOME\snippets\support_functions.vim
+    source $VIM\vimfiles\snippets\support_functions.vim
   endif
 catch
   source ~/.vim/snippets/support_functions.vim
@@ -359,4 +359,17 @@ endfunction
 "-----------------------------------------------------------------------------
 " colorscheme
 "-----------------------------------------------------------------------------
-colorscheme wombat
+set hlsearch 
+
+
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Inconsolata\ 12
+  elseif has("gui_win32")
+    set guifont=Consolas:h12:cANSI
+  endif
+colorscheme railscasts
+else
+  colorscheme default
+endif
+
