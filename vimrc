@@ -23,7 +23,7 @@ endif
 
 " Get pathogen up and running
 filetype off
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
 call pathogen#helptags()
 
 " Set filetype stuff to on
